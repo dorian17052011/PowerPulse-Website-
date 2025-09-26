@@ -1,13 +1,156 @@
 <!DOCTYPE html>
-<html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Powerpulse - Create Your Own Drink</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #fdfbf7;
+      color: #111;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+    }
+    header h1 {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #111;
+      font-weight: 500;
+    }
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 60px 40px;
+    }
+    .hero-text {
+      max-width: 50%;
+    }
+    .hero-text h2 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    .btn {
+      background: #e6392f;
+      color: white;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .hero-image {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: #ffd930;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .hero-image img {
+      width: 180px;
+    }
+    .customize {
+      padding: 40px;
+    }
+    .customize h3 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .options {
+      display: flex;
+      gap: 40px;
+    }
+    .option-group h4 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .circles {
+      display: flex;
+      gap: 10px;
+    }
+    .circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid #ccc;
+    }
+    /* Kleuren */
+    .base1 { background: #fff; }
+    .base2 { background: #f9d93c; }
+    .base3 { background: #5b3a1e; }
+    .flavor1 { background: #f9ed65; }
+    .flavor2 { background: #f6a623; }
+    .flavor3 { background: #e6392f; }
+    .addon1 { background: #5ac8fa; }
+    .addon2 { background: #3dbb63; }
+    .addon3 { background: #f78ca0; }
+  </style>
+</head>
+<body>
 
-<title>PowerPulse</title>
-  <body></body>
+  <header>
+    <h1>POWERPULSE</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
 
+  <section class="hero">
+    <div class="hero-text">
+      <h2>Create Your Own Drink</h2>
+      <button class="btn">Get Started</button>
+    </div>
+    <div class="hero-image">
+      <!-- hier een placeholder glas (kan svg vervangen worden) -->
+      <img src="https://img.icons8.com/emoji/200/tumbler-glass-emoji.png" alt="Drink">
+    </div>
+  </section>
 
+  <section class="customize">
+    <h3>Customize Your Drink</h3>
+    <div class="options">
+      <div class="option-group">
+        <h4>Base</h4>
+        <div class="circles">
+          <div class="circle base1"></div>
+          <div class="circle base2"></div>
+          <div class="circle base3"></div>
+        </div>
+      </div>
+      <div class="option-group">
+        <h4>Flavor</h4>
+        <div class="circles">
+          <div class="circle flavor1"></div>
+          <div class="circle flavor2"></div>
+          <div class="circle flavor3"></div>
+        </div>
+      </div>
+      <div class="option-group">
+        <h4>Add-ons</h4>
+        <div class="circles">
+          <div class="circle addon1"></div>
+          <div class="circle addon2"></div>
+          <div class="circle addon3"></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-
-
-
-  
+</body>
 </html>
