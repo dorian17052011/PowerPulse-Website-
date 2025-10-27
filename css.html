@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Powerpulse - Create Your Own Drink.</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #fdfbf7;
+      color: #111;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+    }
+
+    header h1 {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #111;
+      font-weight: 500;
+    }
+
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 60px 40px;
+    }
+
+    .hero-text {
+      max-width: 50%;
+    }
+
+    .hero-text h2 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      background: #e6392f;
+      color: white;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    /* ======== BEKER STYLING ======== */
+    .hero-image {
+      width: 240px;
+      height: 360px;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .glass {
+      width: 160px;
+      height: 320px;
+      border-radius: 20px 20px 60px 60px;
+      border: 4px solid rgba(200, 200, 200, 0.6);
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow:
+        inset 0 0 15px rgba(255, 255, 255, 0.5),
+        inset 0 -8px 15px rgba(0, 0, 0, 0.15),
+        0 0 25px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(5px);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Reflectie (licht op glas) */
+    .glass::before {
+      content: "";
+      position: absolute;
+      left: 10px;
+      top: 20px;
+      width: 20px;
+      height: 80%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0));
+      border-radius: 10px;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    /* Lagen van de drank */
+    .drink-layer {
+      width: 100%;
+      transition: background 0.3s ease;
+    }
+
+    #addonLayer {
+      height: 20%;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    #flavorLayer {
+      height: 40%;
+    }
+
+    #baseLayer {
+      height: 40%;
+      border-bottom-left-radius: 40px;
+      border-bottom-right-radius: 40px;
+    }
+
+    .customize {
+      padding: 40px;
+    }
+
+    .customize h3 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .options {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .option-group h4 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .circles {
+      display: flex;
+      gap: 10px;
+    }
+
+    .circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid #ccc;
+      transition: transform 0.2s ease, border 0.2s ease;
+    }
+
+    .circle:hover {
+      transform: scale(1.1);
+    }
+
+    .circle.selected {
+      border: 3px solid #111;
+      transform: scale(1.1);
+    }
+
+    /* Kleuren */
+    .base1 { background: #fff; }
+    .base2 { background: #f9d93c; }
+    .base3 { background: #5b3a1e; }
+
+    .flavor1 { background: #f9ed65; }
+    .flavor2 { background: #f6a623; }
+    .flavor3 { background: #e6392f; }
+
+    .addon1 { background: #5ac8fa; }
+    .addon2 { background: #3dbb63; }
+    .addon3 { background: #f78ca0; }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>POWERPULSE</h1>
+    <nav>
+      <a href="Home.html">Home</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h2>Create Your Own Drink</h2>
+      <button class="btn">Get Started</button>
+    </div>
+
+    <!-- Realistische drinkbeker -->
+    <div class="hero-image">
+      <div class="glass">
+        <div id="addonLayer" class="drink-layer" style="background:#f78ca0;"></div>
+        <div id="flavorLayer" class="drink-layer" style="background:#f6a623;"></div>
+        <div id="baseLayer" class="drink-layer" style="background:#fff;"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="customize">
+    <h3>Customize Your Drink</h3>
+    <div class="options">
+      <div class="option-group" data-group="base">
+        <h4>Base</h4>
+        <div class="circles">
+          <div class="circle base1" data-color="#fff"></div>
+          <div class="circle base2" data-color="#f9d93c"></div>
+          <div class="circle base3" data-color="#5b3a1e"></div>
+        </div>
+      </div>
+
+      <div class="option-group" data-group="flavor">
+        <h4>Flavor</h4>
+        <div class="circles">
+          <div class="circle flavor1" data-color="#f9ed65"></div>
+          <div class="circle flavor2" data-color="#f6a623"></div>
+          <div class="circle flavor3" data-color="#e6392f"></div>
+        </div>
+      </div>
+
+      <div class="option-group" data-group="addon">
+        <h4>Add-ons</h4>
+        <div class="circles">
+          <div class="circle addon1" data-color="#5ac8fa"></div>
+          <div class="circle addon2" data-color="#3dbb63"></div>
+          <div class="circle addon3" data-color="#f78ca0"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const layers = {
+      base: document.getElementById("baseLayer"),
+      flavor: document.getElementById("flavorLayer"),
+      addon: document.getElementById("addonLayer")
+    };
+
+    // Alle kleurcircles
+    const circles = document.querySelectorAll(".circle");
+
+    circles.forEach(circle => {
+      circle.addEventListener("click", () => {
+        const parentGroup = circle.closest(".option-group");
+        const groupName = parentGroup.dataset.group;
+        const color = circle.dataset.color;
+
+        // Verwijder selectie uit de groep
+        parentGroup.querySelectorAll(".circle").forEach(c => c.classList.remove("selected"));
+        // Voeg selectie toe
+        circle.classList.add("selected");
+
+        // Update juiste laagkleur
+        layers[groupName].style.background = color;
+      });
+    });
+  </script>
+
+</body>
+</html>
