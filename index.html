@@ -57,24 +57,36 @@
       cursor: pointer;
     }
 
+    /* Bekercontainer */
     .hero-image {
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      background: #ffd930;
+      width: 250px;
+      height: 350px;
+      background: #f2efe7;
+      border-radius: 20px 20px 60px 60px;
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       justify-content: center;
       position: relative;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+      border: 4px solid #ccc;
+      overflow: hidden;
     }
 
-    /* Het "drankje" vierkant */
-    .drink-box {
-      width: 150px;
-      height: 150px;
-      background: #f6a623; /* startkleur */
-      border-radius: 12px;
+    /* De lagen van de drank */
+    .drink-layer {
+      width: 80%;
+      height: 33.3%;
       transition: background 0.3s ease;
+    }
+
+    #addonLayer {
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    #baseLayer {
+      border-bottom-left-radius: 40px;
+      border-bottom-right-radius: 40px;
     }
 
     .customize {
@@ -89,6 +101,7 @@
     .options {
       display: flex;
       gap: 40px;
+      flex-wrap: wrap;
     }
 
     .option-group h4 {
@@ -107,10 +120,15 @@
       border-radius: 50%;
       cursor: pointer;
       border: 2px solid #ccc;
-      transition: transform 0.2s ease;
+      transition: transform 0.2s ease, border 0.2s ease;
     }
 
     .circle:hover {
+      transform: scale(1.1);
+    }
+
+    .circle.selected {
+      border: 3px solid #111;
       transform: scale(1.1);
     }
 
@@ -144,60 +162,73 @@
       <h2>Create Your Own Drink</h2>
       <button class="btn">Get Started</button>
     </div>
+
+    <!-- Nieuwe drinkbeker -->
     <div class="hero-image">
-      <div id="drinkBox" class="drink-box"></div>
+      <div id="addonLayer" class="drink-layer" style="background: #f78ca0;"></div>
+      <div id="flavorLayer" class="drink-layer" style="background: #f6a623;"></div>
+      <div id="baseLayer" class="drink-layer" style="background: #fff;"></div>
     </div>
   </section>
 
   <section class="customize">
     <h3>Customize Your Drink</h3>
     <div class="options">
-      <div class="option-group">
+      <div class="option-group" data-group="base">
         <h4>Base</h4>
         <div class="circles">
-          <div class="circle base1"></div>
-          <div class="circle base2"></div>
-          <div class="circle base3"></div>
+          <div class="circle base1" data-color="#fff"></div>
+          <div class="circle base2" data-color="#f9d93c"></div>
+          <div class="circle base3" data-color="#5b3a1e"></div>
         </div>
       </div>
 
-      <div class="option-group">
+      <div class="option-group" data-group="flavor">
         <h4>Flavor</h4>
         <div class="circles">
-          <div class="circle flavor1"></div>
-          <div class="circle flavor2"></div>
-          <div class="circle flavor3"></div>
+          <div class="circle flavor1" data-color="#f9ed65"></div>
+          <div class="circle flavor2" data-color="#f6a623"></div>
+          <div class="circle flavor3" data-color="#e6392f"></div>
         </div>
       </div>
 
-      <div class="option-group">
+      <div class="option-group" data-group="addon">
         <h4>Add-ons</h4>
         <div class="circles">
-          <div class="circle addon1"></div>
-          <div class="circle addon2"></div>
-          <div class="circle addon3"></div>
+          <div class="circle addon1" data-color="#5ac8fa"></div>
+          <div class="circle addon2" data-color="#3dbb63"></div>
+          <div class="circle addon3" data-color="#f78ca0"></div>
         </div>
       </div>
     </div>
   </section>
 
   <script>
-    const drinkBox = document.getElementById("drinkBox");
+    const layers = {
+      base: document.getElementById("baseLayer"),
+      flavor: document.getElementById("flavorLayer"),
+      addon: document.getElementById("addonLayer")
+    };
 
-    // Als je op een flavor klikt, verander de kleur van het vierkant
-    document.querySelector(".flavor1").addEventListener("click", () => {
-      drinkBox.style.background = "#f9ed65";
-    });
+    // Alle kleurcircles
+    const circles = document.querySelectorAll(".circle");
 
-    document.querySelector(".flavor2").addEventListener("click", () => {
-      drinkBox.style.background = "#f6a623";
-    });
+    circles.forEach(circle => {
+      circle.addEventListener("click", () => {
+        const parentGroup = circle.closest(".option-group");
+        const groupName = parentGroup.dataset.group;
+        const color = circle.dataset.color;
 
-    document.querySelector(".flavor3").addEventListener("click", () => {
-      drinkBox.style.background = "#e6392f";
+        // Verwijder selectie uit de groep
+        parentGroup.querySelectorAll(".circle").forEach(c => c.classList.remove("selected"));
+        // Voeg selectie toe
+        circle.classList.add("selected");
+
+        // Update juiste laag
+        layers[groupName].style.background = color;
+      });
     });
   </script>
 
 </body>
 </html>
-
