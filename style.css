@@ -1,0 +1,80 @@
+/* Algemene body styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #fdfbf7;
+  color: #111;
+}
+
+/* ORANJE achtergrond bovenaan */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 40px;
+  background: linear-gradient(180deg, #ffa533, #ff8800); /* oranje verloop */
+  color: white;
+}
+
+/* Titeltekst in de hero */
+.hero-text h2 {
+  font-size: 48px;
+  margin-bottom: 20px;
+  color: white;
+}
+
+/* Knop */
+.btn {
+  background: white;
+  color: #e6392f;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn:hover {
+  background: #f5f5f5;
+}
+
+/* De beker zelf (optioneel als je die had) */
+.hero-image {
+  width: 240px;
+  height: 360px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/* Glasvorm */
+.glass {
+  width: 160px;
+  height: 320px;
+  border-radius: 20px 20px 60px 60px;
+  border: 4px solid rgba(200, 200, 200, 0.6);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow:
+    inset 0 0 15px rgba(255, 255, 255, 0.5),
+    inset 0 -8px 15px rgba(0, 0, 0, 0.15),
+    0 0 25px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Lichtreflectie */
+.glass::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 20px;
+  width: 20px;
+  height: 80%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0));
+  border-radius: 10px;
+  opacity: 0.6;
+  pointer-events: none;
+}
