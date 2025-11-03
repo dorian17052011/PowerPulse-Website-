@@ -63,6 +63,17 @@
       font-size: 16px;
     }
 
+    .checkbox-group {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .checkbox-group label {
+      font-weight: normal;
+    }
+
     .btn {
       display: block;
       width: 100%;
@@ -95,6 +106,7 @@
   <div class="container">
     <h2>Bestel Je Drink</h2>
     <form>
+      <!-- Basis -->
       <label for="base">Kies een basis</label>
       <select id="base" name="base">
         <option value="water">Wit / Water</option>
@@ -102,20 +114,50 @@
         <option value="thee">Bruin / Thee</option>
       </select>
 
-      <label for="flavor">Kies een smaak</label>
-      <select id="flavor" name="flavor">
-        <option value="Citroen">Citroen</option>
-        <option value="Sinasappel">Sinasappel</option>
-        <option value="Aardbei">Aardbei</option>
-      </select>
+      <!-- Smaakstoffen (1 of 2) -->
+      <label>Smaakstoffen (kies 1 of 2)</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="flavors" value="Aardbei"> Aardbei</label>
+        <label><input type="checkbox" name="flavors" value="Mango"> Mango</label>
+        <label><input type="checkbox" name="flavors" value="Citroen-limoen"> Citroen-limoen</label>
+        <label><input type="checkbox" name="flavors" value="Watermeloen"> Watermeloen</label>
+        <label><input type="checkbox" name="flavors" value="Blauwe bes"> Blauwe bes</label>
+        <label><input type="checkbox" name="flavors" value="Perzik"> Perzik</label>
+      </div>
 
-      <label for="addon">Kies add-ons</label>
-      <select id="addon" name="addon">
-        <option value="ijs">ijs</option>
-        <option value="Mint">Mint</option>
-        <option value="Fruit/Bessen">Fruit/Bessen</option>
-      </select>
+      <!-- Energieboosters (0 of 1) -->
+      <label>Energieboosters (kies 0 of 1)</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="boosters" value="Cafeïne"> Cafeïne</label>
+        <label><input type="checkbox" name="boosters" value="Guarana"> Guarana</label>
+      </div>
 
+      <!-- Elektrolyten -->
+      <label>Elektrolyten (voor hydratatie)</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="electrolytes" value="Natrium"> Natrium</label>
+        <label><input type="checkbox" name="electrolytes" value="Kalium"> Kalium</label>
+        <label><input type="checkbox" name="electrolytes" value="Magnesium"> Magnesium</label>
+      </div>
+
+      <!-- Suikers / zoetstoffen -->
+      <label>Suikers / zoetstoffen</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="sweeteners" value="Dextrose"> Dextrose</label>
+        <label><input type="checkbox" name="sweeteners" value="Honingextract"> Honingextract</label>
+        <label><input type="checkbox" name="sweeteners" value="Stevia"> Stevia</label>
+      </div>
+
+      <!-- Extra’s -->
+      <label>Extra’s (optioneel)</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="extras" value="BCAAs"> BCAA’s</label>
+        <label><input type="checkbox" name="extras" value="Vitamine C"> Vitamine C</label>
+        <label><input type="checkbox" name="extras" value="Spirulina"> Spirulina</label>
+        <label><input type="checkbox" name="extras" value="Gemberextract"> Gemberextract</label>
+      </div>
+
+      <!-- Naam en aantal -->
       <label for="name">Naam</label>
       <input type="text" id="name" name="name" placeholder="Je naam" required>
 
@@ -126,9 +168,10 @@
     </form>
   </div>
 
-    <footer>
+  <footer>
     © 2025 Powerpulse. Alle rechten voorbehouden.
   </footer>
 
 </body>
 </html>
+
