@@ -91,6 +91,13 @@
     .btn:hover {
       background: #d62828;
     }
+
+    .info {
+      font-weight: normal;
+      font-size: 14px;
+      color: #555;
+      margin-top: 5px;
+    }
   </style>
 </head>
 <body>
@@ -109,14 +116,15 @@
       <!-- Basis -->
       <label for="base">Kies een basis</label>
       <select id="base" name="base">
-        <option value="water">Wit / Water</option>
-        <option value="sap">Geel / Sap</option>
-        <option value="thee">Bruin / Thee</option>
+        <option value="water">Water (neutraal)</option>
+        <option value="sap">Sinaasappel- of appel sap</option>
+        <option value="thee">Kruidenthee of groene thee</option>
       </select>
 
-      <!-- Smaakstoffen (1 of 2) -->
-      <label>Smaakstoffen (kies 1 of 2)</label>
-      <div class="checkbox-group">
+      <!-- Smaakstoffen (max 2) -->
+      <label>Smaakstoffen (kies maximaal 2)</label>
+      <div class="info">Selecteer 1 of 2 smaken om je drankje een unieke smaak te geven.</div>
+      <div class="checkbox-group" id="flavors-group">
         <label><input type="checkbox" name="flavors" value="Aardbei"> Aardbei</label>
         <label><input type="checkbox" name="flavors" value="Mango"> Mango</label>
         <label><input type="checkbox" name="flavors" value="Citroen-limoen"> Citroen-limoen</label>
@@ -126,14 +134,16 @@
       </div>
 
       <!-- Energieboosters (0 of 1) -->
-      <label>Energieboosters (kies 0 of 1)</label>
-      <div class="checkbox-group">
+      <label>Energieboosters (optioneel, max 1)</label>
+      <div class="info">Voeg een lichte energieboost toe als je wilt.</div>
+      <div class="checkbox-group" id="boosters-group">
         <label><input type="checkbox" name="boosters" value="Cafeïne"> Cafeïne</label>
         <label><input type="checkbox" name="boosters" value="Guarana"> Guarana</label>
       </div>
 
       <!-- Elektrolyten -->
       <label>Elektrolyten (voor hydratatie)</label>
+      <div class="info">Kies welke mineralen je wilt toevoegen.</div>
       <div class="checkbox-group">
         <label><input type="checkbox" name="electrolytes" value="Natrium"> Natrium</label>
         <label><input type="checkbox" name="electrolytes" value="Kalium"> Kalium</label>
@@ -142,6 +152,7 @@
 
       <!-- Suikers / zoetstoffen -->
       <label>Suikers / zoetstoffen</label>
+      <div class="info">Voeg naar wens zoetstof toe.</div>
       <div class="checkbox-group">
         <label><input type="checkbox" name="sweeteners" value="Dextrose"> Dextrose</label>
         <label><input type="checkbox" name="sweeteners" value="Honingextract"> Honingextract</label>
@@ -171,6 +182,32 @@
   <footer>
     © 2025 Powerpulse. Alle rechten voorbehouden.
   </footer>
+
+  <script>
+    // Max 2 smaken kiezen
+    const flavorGroup = document.querySelectorAll('#flavors-group input[type="checkbox"]');
+    flavorGroup.forEach(box => {
+      box.addEventListener('change', () => {
+        const checked = Array.from(flavorGroup).filter(i => i.checked);
+        if (checked.length > 2) {
+          box.checked = false;
+          alert('Je kunt maximaal 2 smaken kiezen!');
+        }
+      });
+    });
+
+    // Max 1 booster kiezen
+    const boosterGroup = document.querySelectorAll('#boosters-group input[type="checkbox"]');
+    boosterGroup.forEach(box => {
+      box.addEventListener('change', () => {
+        const checked = Array.from(boosterGroup).filter(i => i.checked);
+        if (checked.length > 1) {
+          box.checked = false;
+          alert('Je kunt maximaal 1 energiebooster kiezen!');
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>
