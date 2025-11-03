@@ -61,7 +61,7 @@
       margin-top: 5px;
     }
 
-    select, input[type="text"], input[type="number"], input[type="email"] {
+    select, input[type="text"], input[type="number"], input[type="email"], input[type="tel"] {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
@@ -120,6 +120,19 @@
 <div class="container">
   <h2>Bestel Je Drink</h2>
   <form id="orderForm">
+    <!-- Persoonlijke gegevens -->
+    <label for="name">Naam</label>
+    <input type="text" id="name" name="name" placeholder="Je naam" required>
+
+    <label for="email">E-mail</label>
+    <input type="email" id="email" name="email" placeholder="voorbeeld@email.com" required>
+
+    <label for="phone">Telefoonnummer</label>
+    <input type="tel" id="phone" name="phone" placeholder="06-12345678" required>
+
+    <label for="quantity">Aantal drankjes</label>
+    <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+
     <!-- Basis -->
     <label for="base">Kies een basis</label>
     <select id="base" name="base">
@@ -173,13 +186,6 @@
       <label><input type="checkbox" name="extras" value="Spirulina" data-price="0.70"> Spirulina (€0,70)</label>
       <label><input type="checkbox" name="extras" value="Gemberextract" data-price="0.50"> Gemberextract (€0,50)</label>
     </div>
-
-    <!-- Naam en aantal -->
-    <label for="name">Naam</label>
-    <input type="text" id="name" name="name" placeholder="Je naam" required>
-
-    <label for="quantity">Aantal</label>
-    <input type="number" id="quantity" name="quantity" min="1" value="1" required>
 
     <!-- Betaalwijze -->
     <label>Betaalwijze</label>
@@ -253,3 +259,4 @@
 </script>
 </body>
 </html>
+
