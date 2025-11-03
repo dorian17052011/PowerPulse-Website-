@@ -79,3 +79,36 @@ body {
   pointer-events: none;
 }
 
+/* === Afbeelding vloeiend in oranje achtergrond laten blenden === */
+.hero-visual {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-blend {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.image-blend::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom right, rgba(255,138,0,0.8), rgba(255,136,0,0.4));
+  mix-blend-mode: multiply; /* zorgt voor die mooie oranje samensmelting */
+  pointer-events: none;
+}
+
+.sporter {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: brightness(1.05) contrast(0.95);
+  object-fit: cover;
+}
