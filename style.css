@@ -79,7 +79,6 @@ body {
   pointer-events: none;
 }
 
-/* === Afbeelding vloeiend in oranje achtergrond laten blenden === */
 .hero-visual {
   position: relative;
   flex: 1;
@@ -101,7 +100,7 @@ body {
   position: absolute;
   inset: 0;
   background: linear-gradient(to bottom right, rgba(255,138,0,0.8), rgba(255,136,0,0.4));
-  mix-blend-mode: multiply; /* zorgt voor die mooie oranje samensmelting */
+  mix-blend-mode: multiply;
   pointer-events: none;
 }
 
@@ -112,3 +111,14 @@ body {
   filter: brightness(1.05) contrast(0.95);
   object-fit: cover;
 }
+
+/* hero-image (beker) staat eronder */
+.hero-image {
+  width: 240px;
+  height: 360px;
+  margin: 40px auto; /* centreert de beker onder de hero */
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
