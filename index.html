@@ -36,11 +36,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 60px 40px;
+      padding: 80px 80px; /* slightly more space for glow */
+      background: linear-gradient(to bottom, #ffa63b, #ffcd64); /* optional, matches your new version */
     }
 
     .hero-text {
       max-width: 50%;
+      color: white;
     }
 
     .hero-text h2 {
@@ -60,12 +62,27 @@
 
     /* ======== BEKER STYLING ======== */
     .hero-image {
-      width: 240px;
-      height: 360px;
+      width: 300px;
+      height: 380px;
       position: relative;
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       justify-content: center;
+    }
+
+    /* 🌟 ADDED: Soft orange background glow behind the drink */
+    .hero-image::before {
+      content: "";
+      position: absolute;
+      width: 350px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(255,165,0,0.55), rgba(255,165,0,0));
+      filter: blur(30px);
+      border-radius: 50%;
+      z-index: -1;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
 
     .glass {
@@ -83,7 +100,6 @@
       position: relative;
     }
 
-    /* Reflectie (licht op glas) */
     .glass::before {
       content: "";
       position: absolute;
@@ -97,7 +113,6 @@
       pointer-events: none;
     }
 
-    /* Lagen van de drank */
     .drink-layer {
       width: 100%;
       transition: background 0.3s ease;
@@ -194,7 +209,6 @@
       <a href="order.html" class="btn">Get Started</a>
     </div>
 
-    <!-- Realistische drinkbeker -->
     <div class="hero-image">
       <div class="glass">
         <div id="addonLayer" class="drink-layer" style="background:#f78ca0;"></div>
@@ -243,7 +257,6 @@
       addon: document.getElementById("addonLayer")
     };
 
-    // Alle kleurcircles
     const circles = document.querySelectorAll(".circle");
 
     circles.forEach(circle => {
@@ -252,21 +265,16 @@
         const groupName = parentGroup.dataset.group;
         const color = circle.dataset.color;
 
-        // Verwijder selectie uit de groep
         parentGroup.querySelectorAll(".circle").forEach(c => c.classList.remove("selected"));
-        // Voeg selectie toe
         circle.classList.add("selected");
-
-        // Update juiste laagkleur
         layers[groupName].style.background = color;
       });
     });
   </script>
 
-    <footer>
+  <footer>
     © 2025 Powerpulse. Alle rechten voorbehouden.
   </footer>
 
 </body>
 </html>
-
