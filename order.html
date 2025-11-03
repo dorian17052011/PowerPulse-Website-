@@ -151,22 +151,28 @@
       </div>
 
       <!-- Suikers / zoetstoffen -->
-      <label>Suikers / zoetstoffen</label>
-      <div class="info">Voeg naar wens zoetstof toe.</div>
-      <div class="checkbox-group">
-        <label><input type="checkbox" name="sweeteners" value="Dextrose"> Dextrose</label>
-        <label><input type="checkbox" name="sweeteners" value="Honingextract"> Honingextract</label>
-        <label><input type="checkbox" name="sweeteners" value="Stevia"> Stevia</label>
-      </div>
+<label>Zoetstof (voor smaak, optioneel)</label>
+<div class="info">Kies hoe zoet je drankje moet zijn. Je kunt één of meerdere kiezen.</div>
+<div class="checkbox-group">
+  <label><input type="checkbox" name="sweeteners" value="Dextrose"> Dextrose (snelle suiker, geeft energie)</label>
+  <label><input type="checkbox" name="sweeteners" value="Honingextract"> Honingextract (natuurlijk zoet)</label>
+  <label><input type="checkbox" name="sweeteners" value="Stevia"> Stevia (suikervrij, zoet)</label>
+</div>
 
-      <!-- Extra’s -->
-      <label>Extra’s (optioneel)</label>
-      <div class="checkbox-group">
-        <label><input type="checkbox" name="extras" value="BCAAs"> BCAA’s</label>
-        <label><input type="checkbox" name="extras" value="Vitamine C"> Vitamine C</label>
-        <label><input type="checkbox" name="extras" value="Spirulina"> Spirulina</label>
-        <label><input type="checkbox" name="extras" value="Gemberextract"> Gemberextract</label>
-      </div>
+<!-- Extra’s -->
+<label>Extra ingrediënten (optioneel)</label>
+<div class="info">Voeg extra voedingsstoffen toe voor herstel of energie.</div>
+<div class="checkbox-group">
+  <label><input type="checkbox" name="extras" value="BCAAs"> BCAA’s (aminozuren voor spierherstel)</label>
+  <label><input type="checkbox" name="extras" value="Vitamine C"> Vitamine C (ondersteunt je immuunsysteem)</label>
+  <label><input type="checkbox" name="extras" value="Spirulina"> Spirulina (superfood, vol vitaminen)</label>
+  <label><input type="checkbox" name="extras" value="Gemberextract"> Gemberextract (verfrist en ondersteunt spijsvertering)</label>
+</div>
+
+<!-- Naam -->
+<label for="name">Naam</label>
+<input type="text" id="name" name="name" placeholder="Je naam" required>
+
 
       <!-- Naam en aantal -->
       <label for="name">Naam</label>
