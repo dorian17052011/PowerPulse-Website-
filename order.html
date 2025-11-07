@@ -119,7 +119,7 @@
 
 <div class="container">
   <h2>Bestel Je Drink</h2>
-  <form id="orderForm">
+  <form id="orderForm" action="save_order.php" method="POST">
     <!-- Persoonlijke gegevens -->
     <label for="name">Naam</label>
     <input type="text" id="name" name="name" placeholder="Je naam" required>
@@ -145,46 +145,46 @@
     <label>Smaakstoffen (max 2)</label>
     <div class="info">Selecteer maximaal 2 smaken voor je drankje.</div>
     <div class="checkbox-group" id="flavors-group">
-      <label><input type="checkbox" name="flavors" value="Aardbei" data-price="0.50"> Aardbei (€0,50)</label>
-      <label><input type="checkbox" name="flavors" value="Mango" data-price="0.50"> Mango (€0,50)</label>
-      <label><input type="checkbox" name="flavors" value="Citroen-limoen" data-price="0.50"> Citroen-limoen (€0,50)</label>
-      <label><input type="checkbox" name="flavors" value="Watermeloen" data-price="0.50"> Watermeloen (€0,50)</label>
-      <label><input type="checkbox" name="flavors" value="Blauwe bes" data-price="0.50"> Blauwe bes (€0,50)</label>
-      <label><input type="checkbox" name="flavors" value="Perzik" data-price="0.50"> Perzik (€0,50)</label>
+      <label><input type="checkbox" name="flavors[]" value="Aardbei" data-price="0.50"> Aardbei (€0,50)</label>
+      <label><input type="checkbox" name="flavors[]" value="Mango" data-price="0.50"> Mango (€0,50)</label>
+      <label><input type="checkbox" name="flavors[]" value="Citroen-limoen" data-price="0.50"> Citroen-limoen (€0,50)</label>
+      <label><input type="checkbox" name="flavors[]" value="Watermeloen" data-price="0.50"> Watermeloen (€0,50)</label>
+      <label><input type="checkbox" name="flavors[]" value="Blauwe bes" data-price="0.50"> Blauwe bes (€0,50)</label>
+      <label><input type="checkbox" name="flavors[]" value="Perzik" data-price="0.50"> Perzik (€0,50)</label>
     </div>
 
     <!-- Energieboosters (max 1) -->
     <label>Energieboosters (optioneel, max 1)</label>
     <div class="info">Voeg een energieboost toe voor extra energie.</div>
     <div class="checkbox-group" id="boosters-group">
-      <label><input type="checkbox" name="boosters" value="Cafeïne" data-price="0.50"> Cafeïne (€0,50)</label>
-      <label><input type="checkbox" name="boosters" value="Guarana" data-price="0.50"> Guarana (€0,50)</label>
+      <label><input type="checkbox" name="boosters[]" value="Cafeïne" data-price="0.50"> Cafeïne (€0,50)</label>
+      <label><input type="checkbox" name="boosters[]" value="Guarana" data-price="0.50"> Guarana (€0,50)</label>
     </div>
 
     <!-- Elektrolyten -->
     <label>Elektrolyten (voor hydratatie)</label>
     <div class="info">Kies welke mineralen je wilt toevoegen.</div>
     <div class="checkbox-group">
-      <label><input type="checkbox" name="electrolytes" value="Natrium" data-price="0.30"> Natrium (€0,30)</label>
-      <label><input type="checkbox" name="electrolytes" value="Kalium" data-price="0.30"> Kalium (€0,30)</label>
-      <label><input type="checkbox" name="electrolytes" value="Magnesium" data-price="0.30"> Magnesium (€0,30)</label>
+      <label><input type="checkbox" name="electrolytes[]" value="Natrium" data-price="0.30"> Natrium (€0,30)</label>
+      <label><input type="checkbox" name="electrolytes[]" value="Kalium" data-price="0.30"> Kalium (€0,30)</label>
+      <label><input type="checkbox" name="electrolytes[]" value="Magnesium" data-price="0.30"> Magnesium (€0,30)</label>
     </div>
 
     <!-- Zoetstoffen -->
     <label>Zoetstof (optioneel)</label>
     <div class="checkbox-group">
-      <label><input type="checkbox" name="sweeteners" value="Dextrose" data-price="0.20"> Dextrose (€0,20)</label>
-      <label><input type="checkbox" name="sweeteners" value="Honingextract" data-price="0.20"> Honingextract (€0,20)</label>
-      <label><input type="checkbox" name="sweeteners" value="Stevia" data-price="0.20"> Stevia (€0,20)</label>
+      <label><input type="checkbox" name="sweeteners[]" value="Dextrose" data-price="0.20"> Dextrose (€0,20)</label>
+      <label><input type="checkbox" name="sweeteners[]" value="Honingextract" data-price="0.20"> Honingextract (€0,20)</label>
+      <label><input type="checkbox" name="sweeteners[]" value="Stevia" data-price="0.20"> Stevia (€0,20)</label>
     </div>
 
     <!-- Extra’s -->
     <label>Extra ingrediënten (optioneel)</label>
     <div class="checkbox-group">
-      <label><input type="checkbox" name="extras" value="BCAAs" data-price="1.00"> BCAA’s (€1,00)</label>
-      <label><input type="checkbox" name="extras" value="Vitamine C" data-price="0.50"> Vitamine C (€0,50)</label>
-      <label><input type="checkbox" name="extras" value="Spirulina" data-price="0.70"> Spirulina (€0,70)</label>
-      <label><input type="checkbox" name="extras" value="Gemberextract" data-price="0.50"> Gemberextract (€0,50)</label>
+      <label><input type="checkbox" name="extras[]" value="BCAAs" data-price="1.00"> BCAA’s (€1,00)</label>
+      <label><input type="checkbox" name="extras[]" value="Vitamine C" data-price="0.50"> Vitamine C (€0,50)</label>
+      <label><input type="checkbox" name="extras[]" value="Spirulina" data-price="0.70"> Spirulina (€0,70)</label>
+      <label><input type="checkbox" name="extras[]" value="Gemberextract" data-price="0.50"> Gemberextract (€0,50)</label>
     </div>
 
     <!-- Betaalwijze -->
@@ -194,6 +194,9 @@
       <option value="paypal">PayPal</option>
       <option value="cash">Contant bij afhalen</option>
     </select>
+
+    <!-- Hidden input for total price -->
+    <input type="hidden" name="totalPrice" id="totalPriceInput">
 
     <!-- Prijs -->
     <div class="price-display">Totaal: €<span id="totalPrice">0.00</span></div>
@@ -238,16 +241,18 @@
   const baseSelect = document.getElementById('base');
   const quantityInput = document.getElementById('quantity');
   const totalPrice = document.getElementById('totalPrice');
+  const totalPriceInput = document.getElementById('totalPriceInput');
 
   function updatePrice() {
     let price = parseFloat(baseSelect.selectedOptions[0].text.match(/€([0-9,.]+)/)[1]);
     allCheckboxes.forEach(box => {
-      if (box.checked) {
-        price += parseFloat(box.dataset.price);
-      }
+      if (box.checked) price += parseFloat(box.dataset.price);
     });
     price *= parseInt(quantityInput.value);
     totalPrice.textContent = price.toFixed(2);
+
+    // update hidden input for PHP
+    totalPriceInput.value = price.toFixed(2);
   }
 
   allCheckboxes.forEach(box => box.addEventListener('change', updatePrice));
@@ -259,4 +264,5 @@
 </script>
 </body>
 </html>
+
 
