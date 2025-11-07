@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Powerpulse - Bestel Je Drink</title>
 <style>
-  body { font-family: Arial; margin:0; background:#fdfbf7; color:#111; }
+  body { font-family: Arial, sans-serif; margin:0; background:#fdfbf7; color:#111; }
   header { display:flex; justify-content:space-between; align-items:center; padding:20px 40px; background:#ffa533; color:white; }
   header h1 { font-size:18px; font-weight:bold; }
   nav a { margin-left:20px; text-decoration:none; color:white; font-weight:500; }
@@ -15,11 +15,13 @@
   .info { font-weight:normal; font-size:14px; color:#555; margin-top:5px; }
   select, input[type="text"], input[type="number"], input[type="email"], input[type="tel"] { width:100%; padding:10px; margin-top:5px; border-radius:6px; border:1px solid #ccc; font-size:16px; }
   .checkbox-group { margin-top:10px; display:flex; flex-wrap:wrap; gap:10px; }
-  .checkbox-group label { font-weight:normal; }
+  .checkbox-group label { font-weight:normal; background:#fafafa; padding:8px 10px; border-radius:6px; border:1px solid #eee; cursor:pointer; }
+  .checkbox-group input { margin-right:8px; }
   .btn { display:block; width:100%; padding:14px; margin-top:30px; background:#e6392f; color:white; border:none; border-radius:6px; font-size:16px; cursor:pointer; font-weight:bold; }
   .btn:hover { background:#d62828; }
   .price-display { margin-top:15px; font-weight:bold; font-size:18px; text-align:right; }
   .thank-you { display:none; text-align:center; font-size:20px; font-weight:bold; color:#2a9d8f; margin-top:20px; }
+  .error { color:#b00020; font-size:14px; margin-top:8px; }
 </style>
 </head>
 <body>
@@ -35,7 +37,7 @@
 <div class="container">
   <h2>Bestel Je Drink</h2>
 
-  <!-- Formspree form -->
+  <!-- Formspree form (vervang action als je eigen formspree wilt) -->
   <form id="orderForm" action="https://formspree.io/f/mvgveebb" method="POST">
     <!-- Persoonlijke gegevens -->
     <label for="name">Naam</label>
@@ -50,57 +52,59 @@
     <label for="quantity">Aantal drankjes</label>
     <input type="number" id="quantity" name="quantity" min="1" value="1" required>
 
-    <!-- Basis -->
+    <!-- Basis: data-price attributen -->
     <label for="base">Kies een basis</label>
     <select id="base" name="base">
-  <option value="water" data-price="1.00">Water (neutraal) - €1,00</option>
-  <option value="sap" data-price="1.50">Sinaasappel- of appelsap - €1,50</option>
-  <option value="thee" data-price="1.50">Kruidenthee of groene thee - €1,50</option>
-</select>
+      <option value="water" data-price="1.00">Water (neutraal) - €1,00</option>
+      <option value="sap" data-price="1.50">Sinaasappel- of appelsap - €1,50</option>
+      <option value="thee" data-price="1.50">Kruidenthee of groene thee - €1,50</option>
+    </select>
 
     <!-- Smaakstoffen (max 2) -->
     <label>Smaakstoffen (max 2)</label>
     <div class="info">Selecteer maximaal 2 smaken voor je drankje.</div>
     <div class="checkbox-group" id="flavors-group">
-      <label><input type="checkbox" name="flavors[]" value="Aardbei"> Aardbei (€0,50)</label>
-      <label><input type="checkbox" name="flavors[]" value="Mango"> Mango (€0,50)</label>
-      <label><input type="checkbox" name="flavors[]" value="Citroen-limoen"> Citroen-limoen (€0,50)</label>
-      <label><input type="checkbox" name="flavors[]" value="Watermeloen"> Watermeloen (€0,50)</label>
-      <label><input type="checkbox" name="flavors[]" value="Blauwe bes"> Blauwe bes (€0,50)</label>
-      <label><input type="checkbox" name="flavors[]" value="Perzik"> Perzik (€0,50)</label>
+      <label><input type="checkbox" name="flavors[]" value="Aardbei" data-price="0.50"> Aardbei (€0,50)</label>
+      <label><input type="checkbox" name="flavors[]" value="Mango" data-price="0.50"> Mango (€0,50)</label>
+      <label><input type="checkbox" name="flavors[]" value="Citroen-limoen" data-price="0.50"> Citroen-limoen (€0,50)</label>
+      <label><input type="checkbox" name="flavors[]" value="Watermeloen" data-price="0.50"> Watermeloen (€0,50)</label>
+      <label><input type="checkbox" name="flavors[]" value="Blauwe bes" data-price="0.50"> Blauwe bes (€0,50)</label>
+      <label><input type="checkbox" name="flavors[]" value="Perzik" data-price="0.50"> Perzik (€0,50)</label>
     </div>
+    <div id="flavorError" class="error" aria-live="polite" style="display:none;">Je kunt maximaal 2 smaken kiezen.</div>
 
     <!-- Energieboosters (max 1) -->
     <label>Energieboosters (optioneel, max 1)</label>
     <div class="info">Voeg een energieboost toe voor extra energie.</div>
     <div class="checkbox-group" id="boosters-group">
-      <label><input type="checkbox" name="boosters[]" value="Cafeïne"> Cafeïne (€0,50)</label>
-      <label><input type="checkbox" name="boosters[]" value="Guarana"> Guarana (€0,50)</label>
+      <label><input type="checkbox" name="boosters[]" value="Cafeine" data-price="0.50"> Cafeïne (€0,50)</label>
+      <label><input type="checkbox" name="boosters[]" value="Guarana" data-price="0.50"> Guarana (€0,50)</label>
     </div>
+    <div id="boosterError" class="error" aria-live="polite" style="display:none;">Je kunt maximaal 1 energiebooster kiezen.</div>
 
     <!-- Elektrolyten -->
     <label>Elektrolyten (voor hydratatie)</label>
     <div class="checkbox-group">
-      <label><input type="checkbox" name="electrolytes[]" value="Natrium"> Natrium (€0,30)</label>
-      <label><input type="checkbox" name="electrolytes[]" value="Kalium"> Kalium (€0,30)</label>
-      <label><input type="checkbox" name="electrolytes[]" value="Magnesium"> Magnesium (€0,30)</label>
+      <label><input type="checkbox" name="electrolytes[]" value="Natrium" data-price="0.30"> Natrium (€0,30)</label>
+      <label><input type="checkbox" name="electrolytes[]" value="Kalium" data-price="0.30"> Kalium (€0,30)</label>
+      <label><input type="checkbox" name="electrolytes[]" value="Magnesium" data-price="0.30"> Magnesium (€0,30)</label>
     </div>
 
     <!-- Zoetstoffen -->
     <label>Zoetstof (optioneel)</label>
     <div class="checkbox-group">
-      <label><input type="checkbox" name="sweeteners[]" value="Dextrose"> Dextrose (€0,20)</label>
-      <label><input type="checkbox" name="sweeteners[]" value="Honingextract"> Honingextract (€0,20)</label>
-      <label><input type="checkbox" name="sweeteners[]" value="Stevia"> Stevia (€0,20)</label>
+      <label><input type="checkbox" name="sweeteners[]" value="Dextrose" data-price="0.20"> Dextrose (€0,20)</label>
+      <label><input type="checkbox" name="sweeteners[]" value="Honingextract" data-price="0.20"> Honingextract (€0,20)</label>
+      <label><input type="checkbox" name="sweeteners[]" value="Stevia" data-price="0.20"> Stevia (€0,20)</label>
     </div>
 
     <!-- Extra’s -->
     <label>Extra ingrediënten (optioneel)</label>
     <div class="checkbox-group">
-      <label><input type="checkbox" name="extras[]" value="BCAAs"> BCAA’s (€1,00)</label>
-      <label><input type="checkbox" name="extras[]" value="Vitamine C"> Vitamine C (€0,50)</label>
-      <label><input type="checkbox" name="extras[]" value="Spirulina"> Spirulina (€0,70)</label>
-      <label><input type="checkbox" name="extras[]" value="Gemberextract"> Gemberextract (€0,50)</label>
+      <label><input type="checkbox" name="extras[]" value="BCAAs" data-price="1.00"> BCAA’s (€1,00)</label>
+      <label><input type="checkbox" name="extras[]" value="Vitamine C" data-price="0.50"> Vitamine C (€0,50)</label>
+      <label><input type="checkbox" name="extras[]" value="Spirulina" data-price="0.70"> Spirulina (€0,70)</label>
+      <label><input type="checkbox" name="extras[]" value="Gemberextract" data-price="0.50"> Gemberextract (€0,50)</label>
     </div>
 
     <!-- Betaalwijze -->
@@ -111,7 +115,7 @@
       <option value="cash">Contant bij afhalen</option>
     </select>
 
-    <!-- Hidden input for total price -->
+    <!-- Hidden input for total price (verzenden naar Formspree) -->
     <input type="hidden" name="totalPrice" id="totalPriceInput">
 
     <!-- Prijs -->
@@ -125,7 +129,7 @@
 </div>
 
 <script>
-  // Price calculation and limits
+  // DOM elementen
   const flavorGroup = document.querySelectorAll('#flavors-group input[type="checkbox"]');
   const boosterGroup = document.querySelectorAll('#boosters-group input[type="checkbox"]');
   const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -133,41 +137,89 @@
   const quantityInput = document.getElementById('quantity');
   const totalPrice = document.getElementById('totalPrice');
   const totalPriceInput = document.getElementById('totalPriceInput');
+  const flavorError = document.getElementById('flavorError');
+  const boosterError = document.getElementById('boosterError');
+  const form = document.getElementById('orderForm');
   const thankYou = document.getElementById('thankYou');
 
-  flavorGroup.forEach(box => {
-    box.addEventListener('change', () => {
-      const checked = Array.from(flavorGroup).filter(i => i.checked);
-      if (checked.length > 2) box.checked = false;
-      updatePrice();
-    });
-  });
+  // Helper: parse dataset price (fallback 0)
+  function getPriceFromElement(el) {
+    if (!el) return 0;
+    const p = el.dataset ? el.dataset.price : null;
+    return p ? parseFloat(p) : 0;
+  }
 
-  boosterGroup.forEach(box => {
-    box.addEventListener('change', () => {
-      const checked = Array.from(boosterGroup).filter(i => i.checked);
-      if (checked.length > 1) box.checked = false;
-      updatePrice();
-    });
-  });
-
+  // Update prijs functie (betrouwbaar)
   function updatePrice() {
-    let price = parseFloat(baseSelect.selectedOptions[0].dataset.price);
-    allCheckboxes.forEach(box => { if (box.checked) price += parseFloat(box.dataset.price || 0); });
-    price *= parseInt(quantityInput.value);
+    // basis prijs via data-price op geselecteerde option
+    const selectedBaseOption = baseSelect.selectedOptions[0];
+    let price = getPriceFromElement(selectedBaseOption);
+
+    // som van alle checked checkboxes (elk heeft data-price)
+    allCheckboxes.forEach(box => {
+      if (box.checked) {
+        price += getPriceFromElement(box);
+      }
+    });
+
+    // rekening houden met aantal
+    const qty = Math.max(1, parseInt(quantityInput.value) || 1);
+    price = price * qty;
+
     totalPrice.textContent = price.toFixed(2);
     totalPriceInput.value = price.toFixed(2);
   }
 
+  // Limit logica voor smaken (max 2)
+  flavorGroup.forEach(box => {
+    box.addEventListener('change', () => {
+      const checked = Array.from(flavorGroup).filter(i => i.checked);
+      if (checked.length > 2) {
+        // visual feedback: toon error en deselcteer last toggled
+        box.checked = false;
+        flavorError.style.display = 'block';
+        setTimeout(()=> flavorError.style.display = 'none', 2500);
+      }
+      updatePrice();
+    });
+  });
+
+  // Limit logica voor boosters (max 1)
+  boosterGroup.forEach(box => {
+    box.addEventListener('change', () => {
+      const checked = Array.from(boosterGroup).filter(i => i.checked);
+      if (checked.length > 1) {
+        box.checked = false;
+        boosterError.style.display = 'block';
+        setTimeout(()=> boosterError.style.display = 'none', 2500);
+      }
+      updatePrice();
+    });
+  });
+
+  // Alle checkboxes update prijs bij verandering
   allCheckboxes.forEach(box => box.addEventListener('change', updatePrice));
   baseSelect.addEventListener('change', updatePrice);
   quantityInput.addEventListener('input', updatePrice);
+
+  // initial call
   updatePrice();
 
-  // Formspree submission handling
-  const form = document.getElementById('orderForm');
+  // Formspree submit via fetch (we tonen bedanktekst bij succes)
   form.addEventListener('submit', function(e){
     e.preventDefault();
+
+    // Extra validation: ensure max 2 flavors
+    const selectedFlavors = Array.from(flavorGroup).filter(i => i.checked).length;
+    if (selectedFlavors > 2) {
+      flavorError.style.display = 'block';
+      return;
+    }
+    const selectedBoosters = Array.from(boosterGroup).filter(i => i.checked).length;
+    if (selectedBoosters > 1) {
+      boosterError.style.display = 'block';
+      return;
+    }
 
     fetch(form.action, {
       method: 'POST',
@@ -178,12 +230,15 @@
         form.style.display = 'none';
         thankYou.style.display = 'block';
       } else {
-        alert('Er is iets misgegaan. Probeer opnieuw.');
+        response.json().then(data => {
+          alert('Er is iets misgegaan: ' + (data.error || 'Probeer opnieuw.'));
+        }).catch(()=> alert('Er is iets misgegaan. Probeer opnieuw.'));
       }
-    }).catch(error => alert('Er is iets misgegaan: ' + error));
+    }).catch(error => {
+      alert('Er is iets misgegaan: ' + error);
+    });
   });
 </script>
 
 </body>
 </html>
-
