@@ -118,17 +118,11 @@
   <div class="messages" id="messages">
     <div class="message bot">
       Hallo! 👋<br>
-      Ik ben je Powerpulse-assistent. Kies hieronder een onderwerp om meer te weten.
+      Ik ben je Powerpulse-assistent. Kies hieronder een onderwerp om te beginnen:
     </div>
   </div>
 
-  <div class="button-options">
-    <button class="option-btn" onclick="handleChoice('bestellen')">🛒 Bestellen</button>
-    <button class="option-btn" onclick="handleChoice('smaken')">🍓 Smaken</button>
-    <button class="option-btn" onclick="handleChoice('prijs')">💰 Prijs</button>
-    <button class="option-btn" onclick="handleChoice('contact')">📞 Contact</button>
-    <button class="option-btn" onclick="handleChoice('levering')">🚚 Levering</button>
-  </div>
+  <div class="button-options" id="options"></div>
 </div>
 
 <footer>
@@ -137,34 +131,95 @@
 
 <script>
   const messagesContainer = document.getElementById("messages");
+  const optionsContainer = document.getElementById("options");
+
+  // Hoofdmenu-opties
+  const mainOptions = [
+    { text: "🛒 Bestellen", value: "bestellen" },
+    { text: "🍓 Smaken", value: "smaken" },
+    { text: "💰 Prijs", value: "prijs" },
+    { text: "📞 Contact", value: "contact" },
+    { text: "🚚 Levering", value: "levering" }
+  ];
+
+  const subOptions = {
+    bestellen: [
+      { text: "Hoe bestel ik een drankje?", value: "hoe_bestellen" },
+      { text: "Kan ik mijn eigen mix maken?", value: "eigen_mix" },
+      { text: "Terug naar hoofdmenu", value: "back" }
+    ],
+    smaken: [
+      { text: "Welke smaken zijn er?", value: "welke_smaken" },
+      { text: "Kan ik smaken combineren?", value: "smaken_combineren" },
+      { text: "Terug naar hoofdmenu", value: "back" }
+    ],
+    prijs: [
+      { text: "Wat kost een drankje?", value: "prijs_info" },
+      { text: "Zijn er kortingen?", value: "kortingen" },
+      { text: "Terug naar hoofdmenu", value: "back" }
+    ],
+    contact: [
+      { text: "Hoe neem ik contact op?", value: "contact_opnemen" },
+      { text: "Wat is jullie e-mail?", value: "email_info" },
+      { text: "Terug naar hoofdmenu", value: "back" }
+    ],
+    levering: [
+      { text: "Hoe lang duurt levering?", value: "levering_tijd" },
+      { text: "Kan ik mijn bestelling volgen?", value: "volgen" },
+      { text: "Terug naar hoofdmenu", value: "back" }
+    ]
+  };
+
+  // Reacties van de chatbot
+  const responses = {
+    hoe_bestellen: "Je kunt bestellen via de bestelpagina, daar stel je jouw drankje samen en vul je je gegevens in.",
+    eigen_mix: "Ja! Je kunt zelf kiezen welke smaken, energieboosters en extra’s je toevoegt.",
+    welke_smaken: "We hebben smaken zoals citroen, aardbei, mango, perzik en bosbes!",
+    smaken_combineren: "Ja, je kunt maximaal twee smaken combineren om je perfecte mix te maken.",
+    prijs_info: "De meeste drankjes kosten tussen de €3 en €6, afhankelijk van je samenstelling.",
+    kortingen: "Soms zijn er acties, volg ons op Instagram voor kortingen!",
+    contact_opnemen: "Je kunt ons bereiken via de contactpagina — daar vind je het formulier en telefoonnummer.",
+    email_info: "Ons e-mailadres is info@powerpulse.nl.",
+    levering_tijd: "Levering duurt meestal 1 tot 3 werkdagen, afhankelijk van je locatie.",
+    volgen: "Na je bestelling ontvang je een e-mail met een volgcode.",
+  };
+
+  // Start met hoofdmenu
+  showOptions(mainOptions);
+
+  function showOptions(options) {
+    optionsContainer.innerHTML = "";
+    options.forEach(opt => {
+      const btn = document.createElement("button");
+      btn.className = "option-btn";
+      btn.textContent = opt.text;
+      btn.onclick = () => handleChoice(opt.value);
+      optionsContainer.appendChild(btn);
+    });
+  }
 
   function handleChoice(choice) {
-    addMessage("user", `👉 ${choice.charAt(0).toUpperCase() + choice.slice(1)}`);
-    setTimeout(() => {
-      let response = "";
+    if (choice === "back") {
+      addMessage("user", "🔙 Terug naar hoofdmenu");
+      showOptions(mainOptions);
+      return;
+    }
 
-      switch (choice) {
-        case "bestellen":
-          response = "Je kunt eenvoudig een drankje samenstellen op de Bestel-pagina.";
-          break;
-        case "smaken":
-          response = "We hebben smaken zoals citroen, sinaasappel, mango en aardbei!";
-          break;
-        case "prijs":
-          response = "De prijs hangt af van de ingrediënten, meestal tussen €3 en €6.";
-          break;
-        case "contact":
-          response = "Je kunt ons bereiken via de Contact-pagina — daar staan e-mail en telefoonnummer.";
-          break;
-        case "levering":
-          response = "Levering duurt meestal 1-3 werkdagen, afhankelijk van je locatie.";
-          break;
-        default:
-          response = "Sorry, dat onderwerp ken ik niet.";
-      }
+    addMessage("user", `👉 ${choice.replaceAll("_", " ")}`);
 
-      addMessage("bot", response);
-    }, 500);
+    if (subOptions[choice]) {
+      // Gebruiker heeft een categorie gekozen
+      setTimeout(() => {
+        addMessage("bot", "Kies een van de onderstaande opties:");
+        showOptions(subOptions[choice]);
+      }, 500);
+    } else {
+      // Gebruiker heeft een specifieke vraag gekozen
+      setTimeout(() => {
+        addMessage("bot", responses[choice] || "Daar weet ik helaas niks over 😅");
+        showOptions(mainOptions);
+      }, 600);
+    }
   }
 
   function addMessage(type, text) {
