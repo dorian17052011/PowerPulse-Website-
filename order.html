@@ -152,7 +152,7 @@
   });
 
   function updatePrice() {
-    let price = parseFloat(baseSelect.selectedOptions[0].text.match(/€([0-9,.]+)/)[1]);
+    let price = parseFloat(baseSelect.selectedOptions[0].dataset.price);
     allCheckboxes.forEach(box => { if (box.checked) price += parseFloat(box.dataset.price || 0); });
     price *= parseInt(quantityInput.value);
     totalPrice.textContent = price.toFixed(2);
