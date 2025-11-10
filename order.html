@@ -37,8 +37,8 @@
 <div class="container">
   <h2>Bestel Je Drink</h2>
 
-  <!-- Formspree form (vervang action als je eigen formspree wilt) -->
-  <form id="orderForm" action="https://formspree.io/f/mvgveebb" method="POST">
+  <!-- ✅ Updated Formspree link -->
+  <form id="orderForm" action="https://formspree.io/f/mnnlakjz" method="POST">
     <!-- Persoonlijke gegevens -->
     <label for="name">Naam</label>
     <input type="text" id="name" name="name" placeholder="Je naam" required>
@@ -151,18 +151,15 @@
 
   // Update prijs functie (betrouwbaar)
   function updatePrice() {
-    // basis prijs via data-price op geselecteerde option
     const selectedBaseOption = baseSelect.selectedOptions[0];
     let price = getPriceFromElement(selectedBaseOption);
 
-    // som van alle checked checkboxes (elk heeft data-price)
     allCheckboxes.forEach(box => {
       if (box.checked) {
         price += getPriceFromElement(box);
       }
     });
 
-    // rekening houden met aantal
     const qty = Math.max(1, parseInt(quantityInput.value) || 1);
     price = price * qty;
 
@@ -175,7 +172,6 @@
     box.addEventListener('change', () => {
       const checked = Array.from(flavorGroup).filter(i => i.checked);
       if (checked.length > 2) {
-        // visual feedback: toon error en deselcteer last toggled
         box.checked = false;
         flavorError.style.display = 'block';
         setTimeout(()=> flavorError.style.display = 'none', 2500);
@@ -197,19 +193,15 @@
     });
   });
 
-  // Alle checkboxes update prijs bij verandering
   allCheckboxes.forEach(box => box.addEventListener('change', updatePrice));
   baseSelect.addEventListener('change', updatePrice);
   quantityInput.addEventListener('input', updatePrice);
 
-  // initial call
   updatePrice();
 
-  // Formspree submit via fetch (we tonen bedanktekst bij succes)
   form.addEventListener('submit', function(e){
     e.preventDefault();
 
-    // Extra validation: ensure max 2 flavors
     const selectedFlavors = Array.from(flavorGroup).filter(i => i.checked).length;
     if (selectedFlavors > 2) {
       flavorError.style.display = 'block';
