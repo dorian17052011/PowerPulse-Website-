@@ -122,6 +122,7 @@ body {
     rgba(255, 205, 100, 0)     /* transparant rechts */
   );
   z-index: 1;
+  }
 
 .image-blend::after {
   content: "";
