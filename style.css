@@ -109,25 +109,26 @@ body {
   -webkit-mask-image: linear-gradient(to right, black 70%, transparent 100%);
 }
 
-.image-blend::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-
-  /* 🔸 Fade links → midden → rechts, overal dezelfde oranje tint */
-  background: linear-gradient(
-    to right,
-    rgba(255, 165, 51, 0.9),   /* links dezelfde tint als rechts */
-    rgba(255, 165, 51, 0.0)    /* center transparant */
-  );
-  z-index: 2;
-  pointer-events: none;
-}
-
+/* 🔸 Alleen RECHTS een blend/fade */
 .image-blend::after {
   content: "";
   position: absolute;
   inset: 0;
+
+  background: linear-gradient(
+    to right,
+    rgba(255, 165, 51, 0),      /* volledig transparant links */
+    rgba(255, 165, 51, 0.85)    /* mooie oranje fade rechts */
+  );
+
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* 🔸 NIKS aan de linkerkant */
+.image-blend::before {
+  content: none;
+}
 
   /* 🔸 Extra fade rechts → transparant, zelfde kleur */
   background: linear-gradient(
